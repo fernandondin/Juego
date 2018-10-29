@@ -19,7 +19,7 @@ def SpaceInvader():
     pygame.init()
     ventana = pygame.display.set_mode((ancho,alto))
     pygame.display.set_caption("Naves locochonas");
-    ImagenFondo = pygame.image.load("Imagenes/fondo2.png")
+    ImagenFondo = pygame.image.load("Imagenes/fondo.png")
     pygame.mixer.music.load('Sonidos/Sonido.wav')
     pygame.mixer.music.play(-1)
     fuente = pygame.font.SysFont("comfortaa",30)
