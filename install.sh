@@ -8,7 +8,6 @@ do
 done
 cd $dr
 rm install.sh
-rm install.sh~
 touch Jueguillo.desktop
 echo "[Desktop Entry]" >> Jueguillo.desktop
 echo "Version=1.0" >> Jueguillo.desktop
