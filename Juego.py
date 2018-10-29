@@ -65,16 +65,17 @@ def SpaceInvader():
                   #  x-=5
                    # y-=40
                     #jugador.dispara(x,y)
-                if(event.type == pygame.KEYDOWN):
-                    if(event.key == K_LEFT and jugador.rect.left >0):
-                        jugador.rect.left -= jugador.velocidad
-                    elif(event.key == K_RIGHT and jugador.rect.right<900):
-                        jugador.rect.right += jugador.velocidad
-                    elif(event.key == K_SPACE):
-                        x,y=jugador.rect.center
-                        x-=5
-                        y-=40
-                        jugador.dispara(x,y)
+                #Si se quiere hacer con teclas
+                #if(event.type == pygame.KEYDOWN):
+                 #   if(event.key == K_LEFT and jugador.rect.left >0):
+                  #      jugador.rect.left -= jugador.velocidad
+                   # elif(event.key == K_RIGHT and jugador.rect.right<900):
+                    #    jugador.rect.right += jugador.velocidad
+                    #elif(event.key == K_SPACE):
+                     #   x,y=jugador.rect.center
+                      #  x-=5
+                       # y-=40
+                        #jugador.dispara(x,y)
         ventana.blit(ImagenFondo,(0,0))
         if(len(jugador.listaDisparo)>0):
             for x in jugador.listaDisparo:
