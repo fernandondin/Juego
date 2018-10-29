@@ -13,14 +13,14 @@ def detenerTodo():
             enemigo.listaDisparo.remove(disparo)
         enemigo.conquista=True
 def cargarEnemigos(x,y,d):
-    enemigo = Invasor(x,y,d,"/home/fernandondin/pygame/Imagenes/Marciano.png","/home/fernandondin/pygame/Imagenes/Marciano1.png")
+    enemigo = Invasor(x,y,d,"Imagenes/Marciano.png","Imagenes/Marciano1.png")
     listaEnemigos.append(enemigo)
 def SpaceInvader():
     pygame.init()
     ventana = pygame.display.set_mode((ancho,alto))
     pygame.display.set_caption("Naves locochonas");
-    ImagenFondo = pygame.image.load("/home/fernandondin/pygame/Imagenes/fondo2.png")
-    pygame.mixer.music.load('/home/fernandondin/pygame/Sonidos/Sonido.wav')
+    ImagenFondo = pygame.image.load("Imagenes/fondo2.png")
+    pygame.mixer.music.load('Sonidos/Sonido.wav')
     pygame.mixer.music.play(-1)
     fuente = pygame.font.SysFont("comfortaa",30)
     texto = fuente.render("GAME",0,(0, 163, 92))
