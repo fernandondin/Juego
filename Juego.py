@@ -49,9 +49,8 @@ def SpaceInvader():
         reloj.tick(60)
         tiempo=pygame.time.get_ticks()/1000
         jugador.rect.left= pygame.mouse.get_pos()[0]-27
-        if jugador.rect.left >= 872:
+        if jugador.rect.left >= 870:
             jugador.rect.left = 0
-            pygame.mouse.set_pos([10,10])
         print(jugador.rect.left)
         for event in pygame.event.get():
             if(event.type == QUIT):
