@@ -6,6 +6,7 @@ from random import randint
 from pygame import mixer
 from Clases import Nave
 from Clases import Invasor
+
 ancho = 900
 alto = 480
 listaEnemigos= []
@@ -27,7 +28,6 @@ def SpaceInvader():
     fuente = pygame.font.SysFont("comfortaa",30)
     texto = fuente.render("GAME",0,(0, 163, 92))
     texto1 = fuente.render("OVER",0,(0, 163, 92))
-
     textoWin = fuente.render("YOU",0,(0, 163, 92))
     textoWin1 = fuente.render("WIN",0,(0, 163, 92))
     jugador = Nave.naveEspacial(ancho,alto)
