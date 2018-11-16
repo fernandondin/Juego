@@ -8,6 +8,7 @@ from pygame import mixer
 from Clases import Nave
 from Clases import Invasor
 import autopy
+#900
 ancho = 900
 alto = 480
 listaEnemigos= []
