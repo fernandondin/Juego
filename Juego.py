@@ -7,8 +7,9 @@ from pygame import mixer
 from Clases import Nave
 from Clases import Invasor
 import threading
-class Button():
+class Button(pygame.sprite.Sprite):
     def __init__(self,color,posX,posY,width,height,text,font,sfont):
+        pygame.sprite.Sprite.__init__(self)
         self.color=color
         self.posX=posX
         self.posY=posY
@@ -17,14 +18,22 @@ class Button():
         self.text=text
         self.font=font
         self.sfont=sfont
+        self.imagen = pygame.image.load("Imagenes/boton.png")
+        self.rec=self.imagen.get_rect()
+        self.rec.centerx = self.posX
+        self.rec.centery = self.posY
     def draw(self,window):
-        pygame.draw.rect(window,self.color,(self.posX,self.posY,self.width,self.height),0)
-        font = pygame.font.SysFont(self.font,self.sfont)
-        text = font.render(self.text, 1, (0,0,0))
-        window.blit(text, (self.posX + (self.width/2 - text.get_width()/2), self.posY + (self.height/2 - text.get_height()/2)))
+        #pygame.draw.rect(window,self.color,(self.posX,self.posY,self.width,self.height),0)
+        #font = pygame.font.SysFont(self.font,self.sfont)
+        #text = font.render(self.text, 1, (0,0,0))
+        #window.blit(text, (self.posX + (self.width/2 - text.get_width()/2), self.posY + (self.height/2 - text.get_height()/2)))
+
+        
+        #800,380
+        window.blit(self.imagen,self.rec)
     def isOver(self, pos):
-        if pos[0] > self.posX and pos[0] < self.posX + self.width:
-            if pos[1] > self.posY and pos[1] < self.posY + self.height:
+        if pos[0] > self.posX-50 and pos[0] < self.posX-50 + self.width:
+            if pos[1] > self.posY-50 and pos[1] < self.posY-50 + self.height:
                 return True
         return False
 ancho = 900
@@ -32,9 +41,11 @@ alto = 480
 listaEnemigos= []
 def detenerTodo():
     for enemigo in listaEnemigos:
-        for disparo in enemigo.listaDisparo:
-            enemigo.listaDisparo.remove(disparo)
         enemigo.conquista=True
+        while(len(enemigo.listaDisparo) > 0):
+            for disparo in enemigo.listaDisparo:
+                enemigo.listaDisparo.remove(disparo)
+    return
 def cargarEnemigos(x,y,d):
     enemigo = Invasor(x,y,d,"Imagenes/Marciano.png","Imagenes/Marciano1.png")
     listaEnemigos.append(enemigo)
@@ -81,6 +92,8 @@ def SpaceInvader():
             jugador.rect.left = 0
         if jugador.rect.left < 0 :
             jugador.rect.left = 840
+        if(not(enJuego) and len(listaEnemigos) > 0):
+            jugador.destruccion()
         for event in pygame.event.get():
             if(event.type == QUIT):
                 pygame.quit()
@@ -88,6 +101,7 @@ def SpaceInvader():
             if(not(enJuego)):
                 for disparo in jugador.listaDisparo:
                     jugador.listaDisparo.remove(disparo)
+                print(pygame.mouse.get_pos())
                 if event.type == pygame.MOUSEBUTTONUP and boton.isOver(pygame.mouse.get_pos()):
                     enJuego=True
                     if(len(listaEnemigos) != 0):
@@ -107,8 +121,7 @@ def SpaceInvader():
                 if(event.type == pygame.KEYDOWN):
                     if(event.key == K_LEFT):
                         jugador.rect.left -= jugador.velocidad
-                        print(jugador.velocidad)
-                        print(jugador.rect.left)
+  
                     elif(event.key == K_RIGHT):
                             jugador.rect.right += jugador.velocidad
                     elif(event.key == K_SPACE):
@@ -136,10 +149,10 @@ def SpaceInvader():
                 enemigo.comportamiento(tiempo)
                 enemigo.dibujar(ventana)
                 if(enemigo.rect.colliderect(jugador.rect)):
-                    #jugador.destruccion()
+                    jugador.destruccion()
                     enJuego=False
-                    detenerTodo()
-                    print(enJuego)
+                    stop = threading.Thread(target=detenerTodo)
+                    stop.start()
                 if(len(enemigo.listaDisparo)>0):
                     for x in enemigo.listaDisparo:
                         x.dibujar(ventana)
@@ -147,7 +160,8 @@ def SpaceInvader():
                         if x.rect.colliderect(jugador.rect):
                             jugador.destruccion()
                             enJuego=False
-                            detenerTodo()
+                            stop = threading.Thread(target=detenerTodo)
+                            stop.start()
                         if x.rect.top > 900:
                             enemigo.listaDisparo.remove(x)
                         else:
@@ -163,6 +177,5 @@ def SpaceInvader():
         jugador.dibujar(ventana)
         if(not(enJuego) or len(listaEnemigos) == 0):
             boton.draw(ventana)
-            print enJuego
         pygame.display.update()
 SpaceInvader()
