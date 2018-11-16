@@ -5,8 +5,10 @@ import Proyectil
 class naveEspacial(pygame.sprite.Sprite):
     def __init__(self,ancho,alto):
         pygame.sprite.Sprite.__init__(self)
-        self.ImagenNave=pygame.image.load('Imagenes/nave.png')
         self.ImagenExplosion=pygame.image.load('Imagenes/Marciano.png')
+        self.ImagenN=pygame.image.load("Imagenes/nave.png")
+        self.listaImagen=[self.ImagenN,self.ImagenExplosion]
+        self.ImagenNave=self.listaImagen[0]
         self.rect=self.ImagenNave.get_rect()
         self.rect.centerx = ancho/2
         self.rect.centery = alto-35
@@ -25,5 +27,9 @@ class naveEspacial(pygame.sprite.Sprite):
     def destruccion(self):
         self.sonidoExplosion.play()
         self.vida=False
+        self.ImagenNave=self.listaImagen[1]
         self.velocidad=0
-        self.imagenNave = self.ImagenExplosion
+    def revive(self):
+        self.velocidad = 20
+        self.ImagenNave = self.listaImagen[0]
+        
