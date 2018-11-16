@@ -7,6 +7,7 @@ from random import randint
 from pygame import mixer
 from Clases import Nave
 from Clases import Invasor
+import autopy
 ancho = 900
 alto = 480
 listaEnemigos= []
@@ -50,11 +51,14 @@ def SpaceInvader():
         reloj.tick(60)
         tiempo=pygame.time.get_ticks()/1000
         #posicion del mouse
-        #jugador.rect.left= pygame.mouse.get_pos()[0]-27
-        if jugador.rect.left >= 870:
+        jugador.rect.left= pygame.mouse.get_pos()[0]-27
+        if jugador.rect.left >= 860:
+            print(jugador.rect.left)
             jugador.rect.left = 0
-        if jugador.rect.left < 0 :
-            jugador.rect.left = 840
+            autopy.mouse.move(40,170)
+        #if jugador.rect.left < -26 :
+            #jugador.rect.left = 840
+            #autopy.mouse.move(800,170)
         print(jugador.rect.left)
         for event in pygame.event.get():
             if(event.type == QUIT):
